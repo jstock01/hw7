@@ -47,7 +47,12 @@ firebase.auth().onAuthStateChanged(async function(user) {
         event.preventDefault()
         let movieElement = document.querySelector(`.movie-${movie.id}`)
         movieElement.classList.add('opacity-20')
-        await db.collection('watched_movies').doc(`${movie.id}`).set({})
+        await db.collection('watched_movies').doc(`${movie.id}-${user.uid}`).set({
+          movieId: movie.id,
+          userId: user.uid,
+          userEmail: user.email,
+          movieTitle: movie.original_title
+        })
       }) 
     }
 
